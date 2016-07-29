@@ -1,0 +1,26 @@
+package com.bb_sz.signhelper;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //3082030d308201f5a00302010202044abd4fc0300d06092a864886f70d01010b05003037310b30090603550406130255533110300e060355040a1307416e64726f6964311630140603550403130d416e64726f6964204465627567301e170d3136303530393033343132365a170d3436303530323033343132365a3037310b30090603550406130255533110300e060355040a1307416e64726f6964311630140603550403130d416e64726f696420446562756730820122300d06092a864886f70d01010105000382010f003082010a0282010100a66ca33c48b88fb4095c9df0645bbbec5db7d57710b70532b747db41f2e79edc80fbecca3c80ffbcb9cee68ea309db204df93e260353c7ea7eaaffd4de797a4578fb2367b237e8990e0727563f2919e65fac21c266793b0e46ee9c77018e6e9ff29934a2044552bc1441533bbe3e28f95aee3e1ea0ac9172300862e678d709e2cd0b568dcf88b0e0a15b96aec0f647566832d69e4a588def8f34c231b4b748536202f13e770c39d520fb9ce535b17ccc4002e71bd5d56e7aabd904ec65426e7d28a9c2f31d229d9cff1855f558cea21059ca00a92b84028829b587a28eada9758b8f4a64f7b806939ef228fa823b1570e1b1f18e2fb47d0758f71612fd2757e10203010001a321301f301d0603551d0e04160414882ab7e15933d0b8a4aa94b54b92b4653acdbab2300d06092a864886f70d01010b0500038201010097e03b2c4e52a4187d7cee4138f3261435bf3551b59f6025855c48248a0d72aadf306b425a3eb666980047b7f5b09fe876568d3d7dbd26d0c55f3d830ef165dee692616b053be80ac4faac33a6cc2dfe44a04e1ecc4fa41fd67e732854a74f6261ac824693d012061fae11a4b1fda1023363e3ad2dfff2c907492dedde12c23931ff01d8963db75da32e92a30f6d34383018fbfce3b84460a6e98bcd1ddcabdee23f0581032e5033a2919ba0a6a47a95418fcaead67edea85c1a52ce2bbc95e93b8c71ec3bd6b75a98f6b4a52c407fdd2a0730c1fd3d888d4dcb8bc8ec464cb50cf2c39f21dfaef183e8b743cfc016c4350bc6e46e37131ff3102b44b6b46b1b
+                String s  = SignHelper.getInstance().getSign(MainActivity.this, "com.tencent.android.qqdownloader");
+//                SignHelper.getInstance().getSingInfo(MainActivity.this, "com.tencent.android.qqdownloader");
+                String ss = SignHelper.getInstance().showUninstallAPKSignatures("/sdcard/yyb11.apk");
+                if (null == ss){
+                    return;
+                }
+            }
+        }).start();
+    }
+}
