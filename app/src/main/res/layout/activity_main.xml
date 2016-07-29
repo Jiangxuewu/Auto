@@ -1,0 +1,183 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="start"
+            android:text="开始" />
+
+        <Button
+            android:id="@+id/btn_stop"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="stop"
+            android:text="停止" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:text="每天新跑量个数, 默认是1000个." />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/input_et_max_new_count"
+                android:layout_width="1dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:singleLine="true" />
+
+            <Button
+                android:layout_width="90dp"
+                android:layout_height="45dp"
+                android:onClick="onClickSaveMaxNewCount"
+                android:text="保存" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="upload"
+            android:text="上包" />
+
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cbox_ip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="isNeedChangeIp" />
+
+                <EditText
+                    android:visibility="gone"
+                    android:id="@+id/edit_ip"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Input Ip Counts"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cbox_uninstall_app"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="UninstallApp" />
+
+                <EditText
+                    android:id="@+id/edit_uninstall_app"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:hint="Input key word, split ," />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cbox_only_imei_imsi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="OnlyImeiImsi" />
+
+                <CheckBox
+                    android:id="@+id/cbox_phone_need_reboot_update_build"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="PhoneNeedRebootInBuild" />
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/cbox_is_not_change_device_info"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="NotChangeDeviceInfo" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cbox_reboot_time_blank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="RebootTime(Minute)" />
+
+                <EditText
+                    android:visibility="gone"
+                    android:id="@+id/edit_reboot_time_blank"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Input Times"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
