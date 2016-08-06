@@ -71,6 +71,7 @@ public class MainActivity extends Activity {
 
     int iCount = 0;
     private static String mCurActivity = "";
+    private boolean isRunShFile = false;
 
 
     @Override
@@ -572,7 +573,7 @@ public class MainActivity extends Activity {
         isStart = true;
         updateUI();
         final String path = getRunFilePath();
-        if (TextUtils.isEmpty(path) || !new File(path).exists()) {
+        if ( isRunShFile && (TextUtils.isEmpty(path) || !new File(path).exists())) {
             stopApk();
         } else {
             RunThread.run(new Runnable() {
@@ -592,7 +593,8 @@ public class MainActivity extends Activity {
                     buildCount--;
                     addCurCountToday();
 //                    MrToSh.runShFile(path);
-                    ShHelper.getInstance().searchShFile(MainActivity.this);
+//                    ShHelper.getInstance().searchShFile(MainActivity.this);
+                    ShHelper.getInstance().searchShFile_HM_NOTE(MainActivity.this);
                 }
             });
         }
@@ -689,7 +691,7 @@ public class MainActivity extends Activity {
 
     private static String getRanImei(String stf) {
         StringBuffer sb = new StringBuffer(stf);
-        for (int i = 0; i < 14; i++) {
+        for (int i = 0; i < 15 - stf.length(); i++) {
             sb.append(new Random().nextInt(10));
         }
         return sb.toString();

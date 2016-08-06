@@ -8,9 +8,24 @@ android {
         applicationId "com.bb_sz.auto"
         minSdkVersion 8
         targetSdkVersion 14
-        versionCode 4
-        versionName "1.3"
+        versionCode 6
+        versionName "1.5"
     }
+
+    sourceSets {
+        main {
+//            manifest.srcFile 'AndroidManifest.xml'
+//            java.srcDirs = ['src']
+//            resources.srcDirs = ['src']
+//            aidl.srcDirs = ['src']
+//            renderscript.srcDirs = ['src']
+//            res.srcDirs = ['res']
+//            assets.srcDirs = ['assets']
+//            jni.srcDirs = ['libs']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
