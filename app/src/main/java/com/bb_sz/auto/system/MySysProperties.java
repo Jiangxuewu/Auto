@@ -15,7 +15,7 @@ public class MySysProperties {
         try {
             if (mClassType == null) {
                 mClassType = Class.forName("android.opttool.SystemProperties");
-                mInitMethod = mClassType.getDeclaredMethod("init", String.class, String.class);
+                mInitMethod = mClassType.getMethod("init", String.class, String.class);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -25,7 +25,7 @@ public class MySysProperties {
     public static void init(String key, String val) {
         init();
         try {
-            mInitMethod.invoke(mClassType, key, val);
+            mInitMethod.invoke(null, key, val);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

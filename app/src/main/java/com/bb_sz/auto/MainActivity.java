@@ -41,7 +41,10 @@ import java.util.TimerTask;
 public class MainActivity extends Activity {
 
 
-    private static final String SF_FILE_NAME = "auto_sp_file_name";
+    public static final String SF_FILE_NAME = "auto_sp_file_name";
+
+    public static final String BATTERY_STATUS_KEY = "BATTERY_STATUS_KEY";
+
     private static final String MAX_COUNT_TODAY_KEY = "max_count_today_key";
     private static final String CUR_COUNT_TODAY_KEY = "CUR_COUNT_TODAY_KEY";
 
@@ -55,6 +58,7 @@ public class MainActivity extends Activity {
     private static final String SETTING_REBOOT_TIME_BLANK_KEY = "SETTING_REBOOT_TIME_BLANK_KEY";
     private static final String SETTING_REBOOT_TIME_BLANK_NUMBER_KEY = "SETTING_REBOOT_TIME_BLANK_NUMBER_KEY";
     private static final String SETTING_ON_CREATE_TIME_KEY = "SETTING_ON_CREATE_TIME_KEY";
+
     private static final int DEFAULT_MAX_NEW_COUNT = 1000;
 
     boolean isStart = false;
@@ -282,6 +286,11 @@ public class MainActivity extends Activity {
         super.onStart();
         FLog.i("sky_MainActivity", "onStart(), buildCount is " + buildCount);
 
+        if (isBatterHot()) {
+            stopApk();
+            return;
+        }
+
         long onCreateTime = getLongValue(SETTING_ON_CREATE_TIME_KEY);
         long time = java.lang.System.currentTimeMillis() - onCreateTime;
         if (Setting.iRebootTimeBlankNumber > 9 && time >= Setting.iRebootTimeBlankNumber * 60 * 1000) {
@@ -324,7 +333,10 @@ public class MainActivity extends Activity {
             timer.schedule(task, cd.getTime());
             FLog.i("sky_MainActivity", "onResume()......启动定时器，到点重启手机：" + cd.getTime().toLocaleString());
         }
+    }
 
+    private boolean isBatterHot() {
+        return getBooleanValue(BATTERY_STATUS_KEY);
     }
 
     //卸载无用的app
@@ -573,7 +585,7 @@ public class MainActivity extends Activity {
         isStart = true;
         updateUI();
         final String path = getRunFilePath();
-        if ( isRunShFile && (TextUtils.isEmpty(path) || !new File(path).exists())) {
+        if (isRunShFile && (TextUtils.isEmpty(path) || !new File(path).exists())) {
             stopApk();
         } else {
             RunThread.run(new Runnable() {
@@ -592,9 +604,12 @@ public class MainActivity extends Activity {
                     }
                     buildCount--;
                     addCurCountToday();
-//                    MrToSh.runShFile(path);
+                    if (isRunShFile) {
+                        MrToSh.runShFile(path);
+                    } else {
+                        ShHelper.getInstance().searchShFile_HM_NOTE(MainActivity.this);
 //                    ShHelper.getInstance().searchShFile(MainActivity.this);
-                    ShHelper.getInstance().searchShFile_HM_NOTE(MainActivity.this);
+                    }
                 }
             });
         }

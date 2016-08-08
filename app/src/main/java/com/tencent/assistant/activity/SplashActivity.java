@@ -1,20 +1,19 @@
 package com.tencent.assistant.activity;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.content.Context;
-import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.bb_sz.auto.MrToSh;
 import com.bb_sz.auto.R;
+import com.bb_sz.auto.helper.alarm.AlarmHelper;
 import com.bb_sz.auto.helper.shUtil.ShHelper;
 
 import java.io.File;
@@ -42,12 +41,14 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
 
         tv = (TextView) findViewById(R.id.info);
-//        MrToSh.mrToSh("/sdcard/install/yyb.mr");
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ShHelper.getInstance().searchShFile(SplashActivity.this);
+//                ShHelper.getInstance().searchShFile(SplashActivity.this);
+                AlarmHelper.getInstance().shutdown(SplashActivity.this);
+//                AlarmHelper.getInstance().powerOff(SplashActivity.this);
+                AlarmHelper.getInstance().powerOn(SplashActivity.this);
             }
         }).start();
     }
@@ -59,19 +60,14 @@ public class SplashActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
         tv.setText("");
-
-//        tvAddStr(getBuildInfo());
-//        tvAddStr("IMEI:" + getImei());
-//        tvAddStr("IMSI:" + getImsi());
-//        tvAddStr("screen:" + getScreen());
-//        tvAddStr("MAC:" + getLocalMacAddress());
-//        tvAddStr("exist:" + new File("/data/local/tmp/backup.config").exists());
-//        tvAddStr("deviceId:" + getMockProp().getProperty("deviceId", "123"));
-//        FLog.i("sky", "==================================================================================");
-//        FLog.i("sky", tv.getText().toString());
-//        FLog.i("sky", "==================================================================================");
+        tvAddStr(getBuildInfo());
+        tvAddStr("IMEI:" + getImei());
+        tvAddStr("IMSI:" + getImsi());
+        tvAddStr("screen:" + getScreen());
+        tvAddStr("MAC:" + getLocalMacAddress());
+        tvAddStr("exist:" + new File("/data/local/tmp/backup.config").exists());
+        tvAddStr("deviceId:" + getMockProp().getProperty("deviceId", "123"));
     }
 
     public String getLocalMacAddress() {
