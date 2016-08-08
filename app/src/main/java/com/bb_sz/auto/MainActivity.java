@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.bb_sz.auto.ipswitch.IpWitch;
 import com.bb_sz.auto.log.FLog;
 import com.bb_sz.auto.log.FileUtils;
 import com.bb_sz.auto.model.SimInfo;
+import com.bb_sz.auto.receiver.BatterInfoReceiver;
 import com.bb_sz.auto.system.System;
 import com.bb_sz.auto.tables.DBHelper;
 import com.bb_sz.auto.threads.RunThread;
@@ -121,6 +123,8 @@ public class MainActivity extends Activity {
                 }
             }
         }).start();
+
+        registerReceiver(new BatterInfoReceiver(), new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 
     private void saveOnCreateTime() {
