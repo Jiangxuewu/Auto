@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bb_sz.auto"
-    android:installLocation="internalOnly" >
+    android:installLocation="internalOnly">
 
     <!-- android:sharedUserId="android.uid.system" -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -18,7 +18,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -31,7 +31,7 @@
         </activity>
         <activity
             android:name="com.tencent.assistant.activity.SplashActivity"
-            android:label="@string/title_activity_splash" >
+            android:label="@string/title_activity_splash">
 
         </activity>
 
@@ -40,14 +40,13 @@
             android:enabled="true"
             android:exported="true" />
 
-        <receiver android:name=".receiver.MyBootReceiver" >
+        <receiver android:name=".receiver.MyBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <!-- 关机广播 -->
                 <action android:name="android.intent.action.ACTION_SHUTDOWN" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".receiver.BatterInfoReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BATTERY_CHANGED" />
@@ -59,8 +58,10 @@
         <service
             android:name=".service.MyService"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
+
         </service>
+
     </application>
 
 </manifest>
