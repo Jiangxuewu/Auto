@@ -5,6 +5,8 @@ import android.content.Context;
 import com.bb_sz.auto.MrToSh;
 import com.bb_sz.auto.helper.check.CheckHelp;
 
+import java.io.File;
+
 /**
  * Created by Administrator on 2016/7/28.
  */
@@ -51,7 +53,7 @@ public class ShHelper {
         int times = 0;
         while (true) {
             sleep(100);
-            if (shStartTime > 0 && java.lang.System.currentTimeMillis() - shStartTime > 100 * 1000) {
+            if (shStartTime > 0 && System.currentTimeMillis() - shStartTime > 100 * 1000) {
                 break;
             }
             String cur = CheckHelp.getInstance().getCurrentActivityName(context);
@@ -71,7 +73,7 @@ public class ShHelper {
             } else if ("com.tencent.nucleus.search.SearchActivity".equals(cur)) {//搜索页
                 //弹窗是否开机，自动安装
                 times++;
-                switch (times){
+                switch (times) {
                     case 1:
                         doExec("pm clear " + inputMethodPkg);
                         sleep(1000);
@@ -158,16 +160,18 @@ public class ShHelper {
         sleep(300);
         doExec("pm uninstall " + needSearchPkg);
         sleep(300);
-        doExec("rm -rf /sdcard/!(TM)");
-        sleep(1000);
-        doExec("rm -rf /sdcard/.*");
+        doExec("cd /sdcard");
         sleep(300);
+        doExec("rm -rf .*");
+        sleep(300);
+        doExec("rm -rf *");
+        sleep(3000);
         doExec("am start -n " + yybPkg + "/" + yybLauncher);
         sleep(1000);
         int times = 0;
         while (true) {
             sleep(100);
-            if (shStartTime > 0 && java.lang.System.currentTimeMillis() - shStartTime > 100 * 1000) {
+            if (shStartTime > 0 && System.currentTimeMillis() - shStartTime > 100 * 1000) {
                 break;
             }
             String cur = CheckHelp.getInstance().getCurrentActivityName(context);
@@ -187,7 +191,7 @@ public class ShHelper {
             } else if ("com.tencent.nucleus.search.SearchActivity".equals(cur)) {//搜索页
                 //弹窗是否开机，自动安装
                 times++;
-                switch (times){
+                switch (times) {
                     case 1:
                         doExec("input keyevent 4");
                         sleep(200);
@@ -219,7 +223,7 @@ public class ShHelper {
                 doExec("input tap 543 1225");
             } else if ("com.bb_sz.live.ui.flashlight.FlashlightActivity".equals(cur)) {//安装完成页
                 break;
-            } else if ("com.android.settings.dynamicperm.InstallCompleted".equals(cur)){
+            } else if ("com.android.settings.dynamicperm.InstallCompleted".equals(cur)) {
                 doExec("input tap 150 1225");
                 break;
             }
