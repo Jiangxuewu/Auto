@@ -168,7 +168,7 @@ public class ShHelper {
         boolean isInstallSuccess = false;
         while (true) {
             sleep(100);
-            if (shStartTime > 0 && System.currentTimeMillis() - shStartTime > 60 * 1000) {
+            if (shStartTime > 0 && System.currentTimeMillis() - shStartTime > 66 * 1000) {
                 break;
             }
             String cur = CheckHelp.getInstance().getCurrentActivityName(context);
