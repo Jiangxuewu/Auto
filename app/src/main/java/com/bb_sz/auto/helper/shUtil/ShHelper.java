@@ -160,11 +160,7 @@ public class ShHelper {
         sleep(300);
         doExec("pm uninstall " + needSearchPkg);
         sleep(300);
-        doExec("cd /sdcard");
-        sleep(300);
-        doExec("rm -rf .*");
-        sleep(300);
-        doExec("rm -rf *");
+        clearSD();
         sleep(3000);
         doExec("am start -n " + yybPkg + "/" + yybLauncher);
         sleep(1000);
@@ -183,6 +179,7 @@ public class ShHelper {
                 sleep(5000);
             } else if ("com.tencent.assistantv2.activity.MainActivity".equals(cur)) {//主页
                 doExec("input tap 346 98");
+                times = 0;
                 sleep(1000);
             } else if ("com.tencent.pangu.activity.PopUpNecessaryAcitivity".equals(cur)) {//提示升级页
                 doExec("input keyevent 4");
@@ -234,6 +231,20 @@ public class ShHelper {
 
         StringBuffer sb = new StringBuffer();
         return sb.toString();
+    }
+
+    private void clearSD() {
+        String[] files = new File("/sdcard").list();
+        if (null != files && files.length > 0){
+            for (String f : files) {
+                if ("TM".equals(f)){
+                    continue;
+                } else {
+                    sleep(300);
+                    doExec("rm -rf /sdcard/" + f);
+                }
+            }
+        }
     }
 
     private String doExec(String cmd) {

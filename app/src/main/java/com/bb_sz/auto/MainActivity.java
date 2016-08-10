@@ -78,6 +78,7 @@ public class MainActivity extends Activity {
     int iCount = 0;
     private static String mCurActivity = "";
     private boolean isRunShFile = false;
+    private BatterInfoReceiver mBatterInfoReceiver;
 
 
     @Override
@@ -123,8 +124,12 @@ public class MainActivity extends Activity {
                 }
             }
         }).start();
-
-        registerReceiver(new BatterInfoReceiver(), new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+       mBatterInfoReceiver=  new BatterInfoReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_BATTERY_CHANGED);
+        filter.addAction(Intent.ACTION_BATTERY_LOW);
+        filter.addAction(Intent.ACTION_BATTERY_OKAY);
+        registerReceiver(mBatterInfoReceiver, filter);
     }
 
     private void saveOnCreateTime() {
@@ -485,6 +490,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         DBHelper.destory();
+        unregisterReceiver(mBatterInfoReceiver);
+        FLog.i("sky_MainActivity", "onDestroy()......");
         super.onDestroy();
     }
 
