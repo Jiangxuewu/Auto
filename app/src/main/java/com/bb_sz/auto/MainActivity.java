@@ -21,6 +21,7 @@ import android.widget.EditText;
 
 import com.bb_sz.auto.helper.check.CheckHelp;
 import com.bb_sz.auto.helper.shUtil.ShHelper;
+import com.bb_sz.auto.helper.shUtil.ShRunCallback;
 import com.bb_sz.auto.ipswitch.IpWitch;
 import com.bb_sz.auto.log.FLog;
 import com.bb_sz.auto.log.FileUtils;
@@ -509,7 +510,7 @@ public class MainActivity extends Activity {
         return sp.getInt(MAX_COUNT_TODAY_KEY, DEFAULT_MAX_NEW_COUNT);
     }
 
-    private void setCurCountToday(int i) {
+    private  void setCurCountToday(int i) {
         SharedPreferences sp = getSharedPreferences(SF_FILE_NAME, MODE_PRIVATE);
         sp.edit().putInt(CUR_COUNT_TODAY_KEY, i).commit();
     }
@@ -614,12 +615,20 @@ public class MainActivity extends Activity {
                         updateDeviceInfo();
                     }
                     buildCount--;
-                    addCurCountToday();
                     if (isRunShFile) {
                         MrToSh.runShFile(path);
                     } else {
-                        ShHelper.getInstance().searchShFile_HM_NOTE(MainActivity.this);
-//                    ShHelper.getInstance().searchShFile(MainActivity.this);
+                        ShHelper.getInstance().searchShFile_HM_NOTE(MainActivity.this, new ShRunCallback() {
+                            @Override
+                            public void result(int code, String msg) {
+                                if (code == 0){
+                                    addCurCountToday();
+                                    FLog.e("sky_MainActivity", "sh result:" + msg);
+                                } else {
+                                    FLog.e("sky_MainActivity", "sh result:" + msg);
+                                }
+                            }
+                        });
                     }
                 }
             });

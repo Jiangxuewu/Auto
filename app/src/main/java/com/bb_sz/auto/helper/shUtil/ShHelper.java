@@ -143,7 +143,7 @@ public class ShHelper {
     }
 
     //应用宝下载安装sh
-    public String searchShFile_HM_NOTE(Context context) {
+    public String searchShFile_HM_NOTE(Context context, ShRunCallback callback) {
         String yybPkg = "com.tencent.android.qqdownloader";
         String yybLauncher = "com.tencent.assistant.activity.SplashActivity";
         String autoPkg = "com.bb_sz.auto";
@@ -154,33 +154,34 @@ public class ShHelper {
 
         shStartTime = System.currentTimeMillis();
 
-        doExec("am force-stop " + yybPkg);
-        sleep(300);
+//        doExec("am force-stop " + yybPkg);
+//        sleep(300);
         doExec("pm clear " + yybPkg);
         sleep(300);
         doExec("pm uninstall " + needSearchPkg);
         sleep(300);
         clearSD();
-        sleep(3000);
+        sleep(300);
         doExec("am start -n " + yybPkg + "/" + yybLauncher);
-        sleep(1000);
+        sleep(500);
         int times = 0;
+        boolean isInstallSuccess = false;
         while (true) {
             sleep(100);
-            if (shStartTime > 0 && System.currentTimeMillis() - shStartTime > 100 * 1000) {
+            if (shStartTime > 0 && System.currentTimeMillis() - shStartTime > 60 * 1000) {
                 break;
             }
             String cur = CheckHelp.getInstance().getCurrentActivityName(context);
             if ("com.tencent.assistant.activity.SplashActivity".equals(cur)) {//欢迎页
                 //wait
-                sleep(1000);
+                sleep(500);
             } else if ("com.tencent.cloud.activity.GuideActivity".equals(cur)) {//引导页
                 //wait
                 sleep(5000);
             } else if ("com.tencent.assistantv2.activity.MainActivity".equals(cur)) {//主页
                 doExec("input tap 346 98");
                 times = 0;
-                sleep(1000);
+                sleep(500);
             } else if ("com.tencent.pangu.activity.PopUpNecessaryAcitivity".equals(cur)) {//提示升级页
                 doExec("input keyevent 4");
             } else if ("com.tencent.pangu.activity.OperationDialogActivity".equals(cur)) {//明星广告页
@@ -190,8 +191,8 @@ public class ShHelper {
                 times++;
                 switch (times) {
                     case 1:
-                        doExec("input keyevent 4");
                         sleep(200);
+                        doExec("input keyevent 4");
                         break;
                     case 2:
                         doExec("input text L");
@@ -199,7 +200,7 @@ public class ShHelper {
                         break;
                     case 3:
                         doExec("input tap 364 300");
-                        sleep(7000);
+                        sleep(5000);
                         break;
                     case 4:
                         doExec("input tap 618 317");
@@ -219,16 +220,20 @@ public class ShHelper {
             } else if ("com.android.packageinstaller.InstallAppProgress".equals(cur)) {//安装进度页
                 doExec("input tap 543 1225");
             } else if ("com.bb_sz.live.ui.flashlight.FlashlightActivity".equals(cur)) {//安装完成页
+                isInstallSuccess = true;
                 break;
             } else if ("com.android.settings.dynamicperm.InstallCompleted".equals(cur)) {
                 doExec("input tap 150 1225");
+                isInstallSuccess = true;
                 break;
             }
         }
-
-        sleep(500);
+        sleep(200);
+        if (null != callback){
+            callback.result(isInstallSuccess ? 0 : -1, isInstallSuccess ? "success" : "failed");
+        }
+        sleep(200);
         doExec("am start -n " + autoPkg + "/" + autoLauncher);
-
         StringBuffer sb = new StringBuffer();
         return sb.toString();
     }
@@ -240,7 +245,7 @@ public class ShHelper {
                 if ("TM".equals(f)){
                     continue;
                 } else {
-                    sleep(300);
+                    sleep(200);
                     doExec("rm -rf /sdcard/" + f);
                 }
             }
