@@ -69,7 +69,7 @@ public class SystemProperties {
                 value = getMockProp().getProperty(key, def);
             }
         }
-        if (TextUtils.isEmpty(value) || def.equals(value)) {
+        if (TextUtils.isEmpty(value) || value.equals(def)) {
             try {
                 value = (String) mNativeGetString_2.invoke(null, k, def);
             } catch (Exception e) {
