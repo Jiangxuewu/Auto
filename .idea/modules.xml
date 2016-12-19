@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Auto.iml" filepath="$PROJECT_DIR$/Auto.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/autohelper/autohelper.iml" filepath="$PROJECT_DIR$/autohelper/autohelper.iml" />
       <module fileurl="file://$PROJECT_DIR$/signhelper/signhelper.iml" filepath="$PROJECT_DIR$/signhelper/signhelper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tyhelper/tyhelper.iml" filepath="$PROJECT_DIR$/tyhelper/tyhelper.iml" />
     </modules>
   </component>
 </project>

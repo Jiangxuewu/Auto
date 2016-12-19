@@ -1,1 +1,1 @@
-include ':app', ':signhelper'
+include ':app', ':signhelper', ':autohelper', ':tyhelper'

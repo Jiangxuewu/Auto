@@ -108,23 +108,23 @@ public class MainActivity extends Activity {
         Intent i = new Intent(this, RunServer.class);
         startService(i);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        Thread.sleep(1000);
-                        String curAct = CheckHelp.getInstance().getCurrentActivityName(MainActivity.this);
-                        if (!mCurActivity.equals(curAct)) {
-                            mCurActivity = curAct;
-                            FLog.e("Task", curAct);
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    try {
+//                        Thread.sleep(1000);
+//                        String curAct = CheckHelp.getInstance().getCurrentActivityName(MainActivity.this);
+//                        if (!mCurActivity.equals(curAct)) {
+//                            mCurActivity = curAct;
+//                        }
+//                        FLog.e("Task", curAct);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }).start();
        mBatterInfoReceiver=  new BatterInfoReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_BATTERY_CHANGED);
